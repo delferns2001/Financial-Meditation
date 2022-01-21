@@ -2,12 +2,14 @@
 
 class ShoppingListEntry:
 
-    def __init__(self, name="Default", date="Default", time="Default", value=0, quantity=0):
+    def __init__(self, name="Default", date="Default", time="Default", value=0, quantity=0, supermarket="Default", weekNo=0):
         self.name = name
         self.date = date
         self.time = time
         self.value = value
         self.quantity = quantity
+        self.supermarket = supermarket
+        self.weekNo = weekNo
 
     def showData(self):
         print("name: " + str(self.name))

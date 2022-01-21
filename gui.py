@@ -1,4 +1,5 @@
-from tkinter import StringVar, Tk, Frame
+from ast import Str
+from tkinter import S, StringVar, Tk, Frame
 from tkinter.ttk import Entry, Label, Button, Radiobutton
 
 from matplotlib.pyplot import text
@@ -71,11 +72,15 @@ class GUI:
         self.date = self.datetime.date()
         self.time = self.datetime.strftime("%H:%M:%S")
 
+        # temp variables
+        self.supermarket = "Lidl"
+        self.weekNo = self.datetime.isocalendar()[1]
+
     def onSubmit(self):
 
         if len(self.name.get()) != 0 and len(self.value.get()) != 0 and len(self.quantity.get()) != 0:
             print("name: " + str(self.name.get()) + " value: " +
-                  str(self.value.get()) + " quantity: " + str(self.quantity.get()))
+                  str(self.value.get()) + " quantity: " + str(self.quantity.get()) + " supermarket: " + str(self.supermarket) + " Week Number: " + str(self.weekNo))
             self.CreateShoppingBasketItem()
             self.saveEntry()
             self.resetValues()
@@ -90,16 +95,17 @@ class GUI:
     def CreateShoppingBasketItem(self):
 
         count = len(self.shoppingBusket.winfo_children()) + 1
+
         label = Label(
-            self.shoppingBusket, text=f"{count}. Name: {self.name.get()}, Value: {self.value.get()}, Quantity: {self.quantity.get()}")
+            self.shoppingBusket, text=f"{count}. Name: {self.name.get()}, Value: {self.value.get()}, Quantity: {self.quantity.get()}, Supermarket: {self.supermarket}, Week Number: {self.weekNo}", font='Helvetica 12 bold')
         label.pack()
 
     def saveEntry(self):
         sqlhandler = ConnectToSqlite()
 
         entry = ShoppingListEntry(
-            self.name.get(), str(self.date), str(self.time), self.value.get(), self.quantity.get())
-        sqlhandler.add_entry(entry)
+            self.name.get(), str(self.date), str(self.time), self.value.get(), self.quantity.get(), str(self.supermarket), self.weekNo)
+        # sqlhandler.add_entry(entry)
         sqlhandler.closeConnection()
 
 

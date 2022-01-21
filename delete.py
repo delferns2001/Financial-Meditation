@@ -1,22 +1,21 @@
-# Import tkinter library
-from tkinter import *
-from tkinter import ttk
+import pandas as pd
+from datetime import datetime
+from datetime import date
 
-# Create an instance of Tkinter frame or window
-win = Tk()
+# print(pd.date_range(end=datetime.today(), periods=-7).to_pydatetime().tolist())
 
-# Set the geometry of tkinter frame
-win.geometry("750x250")
+# today = date.today()
+# print(today)
+
+# # OR
+
+# # print(pd.date_range(start="2022-01-01", end="2023-01-01").to_pydatetime().tolist())
 
 
-def callback():
-    Label(win, text="Hello World!", font=('Georgia 20 bold')).pack(pady=4)
+d1 = datetime.now()
+# retuns year, week, month
+print(d1.isocalendar()[1])
+print('Week :', d1.isocalendar()[1])
 
 
-# Create a Label and a Button widget
-btn = ttk.Button(win, text="Press Enter to Show a Message", command=callback)
-btn.pack(ipadx=10)
-
-win.bind('<Return>', lambda event: callback())
-
-win.mainloop()
+print('\033[1m' + 'Hello')

@@ -8,11 +8,11 @@ class ConnectToSqlite:
     def __init__(self) -> None:
         self.conn = sqlite3.connect('spanding.db')
         self.c = self.conn.cursor()
-    
+
     def add_entry(self, entry):
         with self.conn:
-            self.c.execute("INSERT INTO spandingRecord VALUES (:id, :name, :date, :time, :value, :quantity)", {
-                "id": None, "name": entry.name, "date": entry.date, "time": entry.time,"value": entry.value, "quantity": entry.quantity})
+            self.c.execute("INSERT INTO spandingRecord VALUES (:id, :name, :date, :time, :value, :quantity, :supermarket, :weekNo)", {
+                "id": None, "name": entry.name, "date": entry.date, "time": entry.time, "value": entry.value, "quantity": entry.quantity, "supermarket": entry.supermarket, "weekNo": entry.weekNo})
 
     def remove_entry(self, name):
         with self.conn:
@@ -24,7 +24,8 @@ class ConnectToSqlite:
         return self.c.fetchall()
 
     def get_entries_by_name(self, name):
-        self.c.execute("SELECT * FROM spandingRecord WHERE name=:name", {'name': name})
+        self.c.execute(
+            "SELECT * FROM spandingRecord WHERE name=:name", {'name': name})
         return self.c.fetchall()
 
     def closeConnection(self):
